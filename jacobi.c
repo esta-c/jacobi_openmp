@@ -51,6 +51,7 @@ void jacobi_iterations (double *A, double *b, double *x, double *xtmp) {
       }
       xtmp[row] = (b[row] - dot) / A[row + row*N];
     }
+
     return;
 }
 
@@ -70,8 +71,8 @@ int run(double *A, double *b, double *x, double *xtmp)
   do
   {
 
-    // Perfom Jacobi iteration
-    jacobi_iterations(A, b, x, xtmp);
+// Perfom Jacobi iteration
+jacobi_iterations(A, b, x, xtmp);
 
     // Swap pointers
     ptrtmp = x;

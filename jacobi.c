@@ -37,6 +37,23 @@ double get_timestamp();
 // Parse command line arguments to set solver parameters
 void parse_arguments(int argc, char *argv[]);
 
+//jacobi iteration function
+void jacobi_iterations (*A, *xtmp, N, *x) {
+  int row, col;
+  double dot;
+  for (row = 0; row < N; row++)
+  {
+    dot = 0.0;
+    for (col = 0; col < N; col++)
+    {
+      if (row != col)
+        dot += A[col + row*N] * x[col];
+      }
+      xtmp[row] = (b[row] - dot) / A[row + row*N];
+    }
+}
+
+
 // Run the Jacobi solver
 // Returns the number of iterations performed
 int run(double *A, double *b, double *x, double *xtmp)
@@ -53,17 +70,7 @@ int run(double *A, double *b, double *x, double *xtmp)
   do
   {
     // Perfom Jacobi iteration
-    for (row = 0; row < N; row++)
-    {
-      dot = 0.0;
-      for (col = 0; col < N; col++)
-      {
-        if (row != col)
-          dot += A[row + col*N] * x[col];
-      }
-      xtmp[row] = (b[row] - dot) / A[row + row*N];
-    }
-
+    jacobi_iterations(*A, *xtmp, N, *x);
     // Swap pointers
     ptrtmp = x;
     x      = xtmp;
@@ -87,10 +94,11 @@ int main(int argc, char *argv[])
 {
   parse_arguments(argc, argv);
 
+  double *xtmp = malloc(N*sizeof(double));
+  double *x    = malloc(N*sizeof(double));
   double *A    = malloc(N*N*sizeof(double));
   double *b    = malloc(N*sizeof(double));
-  double *x    = malloc(N*sizeof(double));
-  double *xtmp = malloc(N*sizeof(double));
+
 
   printf(SEPARATOR);
   printf("Matrix size:            %dx%d\n", N, N);
@@ -108,7 +116,7 @@ int main(int argc, char *argv[])
     for (int col = 0; col < N; col++)
     {
       double value = rand()/(double)RAND_MAX;
-      A[row + col*N] = value;
+      A[col + row*N] = value;
       rowsum += value;
     }
     A[row + row*N] += rowsum;
@@ -128,7 +136,7 @@ int main(int argc, char *argv[])
     double tmp = 0.0;
     for (int col = 0; col < N; col++)
     {
-      tmp += A[row + col*N] * x[col];
+      tmp += A[col + row*N] * x[col];
     }
     tmp = b[row] - tmp;
     err += tmp*tmp;

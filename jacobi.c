@@ -39,12 +39,9 @@ void parse_arguments(int argc, char *argv[]);
 
 void extract_diagonal(double *A, double *D){
   int row;
-  int col;
   for (row = 0; row < N; row++){
-    for (col = 0; col < N; col++){
       D[row] = 1 / A[row + row*N];
       A[row + row*N] = 0.0;
-    }
   }
   return;
 }
@@ -136,6 +133,7 @@ int main(int argc, char *argv[])
     A[row + row*N] += rowsum;
     b[row] = rand()/(double)RAND_MAX;
     x[row] = 0.0;
+    D[row] = 0.0;
   }
 
   extract_diagonal(A, D);

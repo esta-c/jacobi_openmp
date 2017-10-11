@@ -46,6 +46,11 @@ void extract_diagonal(double *A, double *D){
   return;
 }
 
+double dot_product(double *A, double *x, int row, int col, double dot) {
+  dot += A[col + row*N] * x[col];
+  return dot;
+}
+
 //jacobi iteration function
 void jacobi_iterations (double *A, double *D, double *b, double *x, double *xtmp) {
   int row, col;
@@ -55,7 +60,7 @@ void jacobi_iterations (double *A, double *D, double *b, double *x, double *xtmp
     dot = 0.0;
     for (col = 0; col < N; col++)
     {
-        dot += A[col + row*N] * x[col];
+        dot = dot_product(A, x, row, col, dot);
       }
       xtmp[row] = (b[row] - dot) * D[row];
     }

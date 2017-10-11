@@ -88,7 +88,7 @@ int run(double *A, double *b, double *x, double *xtmp)
 
     itr++;
   } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
-
+printf("gets here\n");
   return itr;
 }
 

@@ -59,8 +59,7 @@ void jacobi_iterations (double *A, double *xtmp, double N, double *x, double *b)
 int run(double *A, double *b, double *x, double *xtmp)
 {
   int itr;
-  int row, col;
-  double dot;
+  int row;
   double diff;
   double sqdiff;
   double *ptrtmp;

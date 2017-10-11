@@ -37,8 +37,20 @@ double get_timestamp();
 // Parse command line arguments to set solver parameters
 void parse_arguments(int argc, char *argv[]);
 
+void extract_diagonal(double *A, double *D){
+  int row;
+  int col;
+  for (row = 0; row < N; row++){
+    for (col = 0; col < N; col++){
+      D[row] = 1 / A[row + row*N];
+      A[row + row*N] = 0.0;
+    }
+  }
+  return;
+}
+
 //jacobi iteration function
-void jacobi_iterations (double *A, double *b, double *x, double *xtmp) {
+void jacobi_iterations (double *A, double *D, double *b, double *x, double *xtmp) {
   int row, col;
   double dot;
   for (row = 0; row < N; row++)
@@ -46,10 +58,9 @@ void jacobi_iterations (double *A, double *b, double *x, double *xtmp) {
     dot = 0.0;
     for (col = 0; col < N; col++)
     {
-      if (row != col)
         dot += A[col + row*N] * x[col];
       }
-      xtmp[row] = (b[row] - dot) / A[row + row*N];
+      xtmp[row] = (b[row] - dot) * D[row];
     }
     return;
 }
@@ -57,7 +68,7 @@ void jacobi_iterations (double *A, double *b, double *x, double *xtmp) {
 
 // Run the Jacobi solver
 // Returns the number of iterations performed
-int run(double *A, double *b, double *x, double *xtmp)
+int run(double *A, double *D, double *b, double *x, double *xtmp)
 {
   int itr;
   int row;
@@ -71,7 +82,7 @@ int run(double *A, double *b, double *x, double *xtmp)
   {
 
 // Perfom Jacobi iteration
-jacobi_iterations(A, b, x, xtmp);
+jacobi_iterations(A, D, b, x, xtmp);
 
     // Swap pointers
     ptrtmp = x;
@@ -97,6 +108,7 @@ int main(int argc, char *argv[])
   parse_arguments(argc, argv);
 
   double *A    = malloc(N*N*sizeof(double));
+  double *D    = malloc(N*sizeof(double));
   double *b    = malloc(N*sizeof(double));
   double *x    = malloc(N*sizeof(double));
   double *xtmp = malloc(N*sizeof(double));
@@ -126,9 +138,11 @@ int main(int argc, char *argv[])
     x[row] = 0.0;
   }
 
+  extract_diagonal(A, D);
+
   // Run Jacobi solver
   double solve_start = get_timestamp();
-  int itr = run(A, b, x, xtmp);
+  int itr = run(A, D, b, x, xtmp);
   double solve_end = get_timestamp();
 
   // Check error of final solution

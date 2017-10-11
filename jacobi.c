@@ -38,7 +38,7 @@ double get_timestamp();
 void parse_arguments(int argc, char *argv[]);
 
 //jacobi iteration function
-void jacobi_iterations (*A, *xtmp, N, *x) {
+void jacobi_iterations (double *A, double *xtmp, double N, double *x) {
   int row, col;
   double dot;
   for (row = 0; row < N; row++)

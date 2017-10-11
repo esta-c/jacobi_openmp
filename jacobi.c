@@ -70,7 +70,7 @@ int run(double *A, double *b, double *x, double *xtmp)
   {
 
     // Perfom Jacobi iteration
-    jacobi_iterations(A, xtmp, N, x, b);
+    jacobi_iterations(A, xtmp, x, b);
 
     // Swap pointers
     ptrtmp = x;

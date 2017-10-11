@@ -51,7 +51,6 @@ void jacobi_iterations (double *A, double *b, double *x, double *xtmp) {
       }
       xtmp[row] = (b[row] - dot) / A[row + row*N];
     }
-
     return;
 }
 

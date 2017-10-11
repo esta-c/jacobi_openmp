@@ -38,7 +38,7 @@ double get_timestamp();
 void parse_arguments(int argc, char *argv[]);
 
 //jacobi iteration function
-void jacobi_iterations (double *A, double *xtmp, double *x, double *b) {
+void jacobi_iterations (double *A, double *b, double *x, double *xtmp) {
   int row, col;
   double dot;
   for (row = 0; row < N; row++)
@@ -71,7 +71,7 @@ int run(double *A, double *b, double *x, double *xtmp)
   {
 
     // Perfom Jacobi iteration
-    jacobi_iterations(A, xtmp, x, b);
+    jacobi_iterations(A, b, x, xtmp);
 
     // Swap pointers
     ptrtmp = x;
@@ -96,10 +96,10 @@ int main(int argc, char *argv[])
 {
   parse_arguments(argc, argv);
 
-  double *xtmp = malloc(N*sizeof(double));
-  double *x    = malloc(N*sizeof(double));
   double *A    = malloc(N*N*sizeof(double));
   double *b    = malloc(N*sizeof(double));
+  double *x    = malloc(N*sizeof(double));
+  double *xtmp = malloc(N*sizeof(double));
 
 
   printf(SEPARATOR);

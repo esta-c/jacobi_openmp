@@ -16,4 +16,3 @@ echo Directory is `pwd`
 echo PBS job ID is $PBS_JOBID
 
 ./jacobi --norder 1000 --iterations 20000
-gprof jacobi gmon.out > profile.txt

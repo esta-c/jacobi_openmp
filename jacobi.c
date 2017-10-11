@@ -46,11 +46,6 @@ void extract_diagonal(double *A, double *D){
   return;
 }
 
-double dot_product(double *A, double *x, int row, int col, double dot) {
-  dot += A[col + row*N] * x[col];
-  return dot;
-}
-
 //jacobi iteration function
 void jacobi_iterations (double *A, double *D, double *b, double *x, double *xtmp) {
   int row, col;
@@ -60,7 +55,7 @@ void jacobi_iterations (double *A, double *D, double *b, double *x, double *xtmp
     dot = 0.0;
     for (col = 0; col < N; col++)
     {
-        dot = dot_product(A, x, row, col, dot);
+        dot += A[col + row*N] * x[col];
       }
       xtmp[row] = (b[row] - dot) * D[row];
     }
@@ -73,7 +68,8 @@ void jacobi_iterations (double *A, double *D, double *b, double *x, double *xtmp
 int run(double *A, double *D, double *b, double *x, double *xtmp)
 {
   int itr;
-  int row;
+  int row, col;
+  double dot;
   double diff;
   double sqdiff;
   double *ptrtmp;
@@ -84,7 +80,15 @@ int run(double *A, double *D, double *b, double *x, double *xtmp)
   {
 
 // Perfom Jacobi iteration
-jacobi_iterations(A, D, b, x, xtmp);
+for (row = 0; row < N; row++)
+{
+  dot = 0.0;
+  for (col = 0; col < N; col++)
+  {
+      dot += A[col + row*N] * x[col];
+    }
+    xtmp[row] = (b[row] - dot) * D[row];
+  }
 
     // Swap pointers
     ptrtmp = x;
@@ -141,7 +145,12 @@ int main(int argc, char *argv[])
     D[row] = 0.0;
   }
 
-  extract_diagonal(A, D);
+  //Extract diagonal
+
+  for (int row = 0; row < N; row++){
+      D[row] = 1 / A[row + row*N];
+      A[row + row*N] = 0.0;
+    }
 
   // Run Jacobi solver
   double solve_start = get_timestamp();

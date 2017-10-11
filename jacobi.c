@@ -37,30 +37,13 @@ double get_timestamp();
 // Parse command line arguments to set solver parameters
 void parse_arguments(int argc, char *argv[]);
 
-//jacobi iteration function
-void jacobi_iterations (double *A, double *b, double *x, double *xtmp) {
-  int row, col;
-  double dot;
-  for (row = 0; row < N; row++)
-  {
-    dot = 0.0;
-    for (col = 0; col < N; col++)
-    {
-      if (row != col)
-        dot += A[col + row*N] * x[col];
-      }
-      xtmp[row] = (b[row] - dot) / A[row + row*N];
-    }
-    return;
-}
-
-
 // Run the Jacobi solver
 // Returns the number of iterations performed
 int run(double *A, double *b, double *x, double *xtmp)
 {
   int itr;
-  int row;
+  int row, col;
+  double dot;
   double diff;
   double sqdiff;
   double *ptrtmp;
@@ -69,9 +52,17 @@ int run(double *A, double *b, double *x, double *xtmp)
   itr = 0;
   do
   {
-
     // Perfom Jacobi iteration
-    jacobi_iterations(A, b, x, xtmp);
+    for (row = 0; row < N; row++)
+    {
+      dot = 0.0;
+      for (col = 0; col < N; col++)
+      {
+        if (row != col)
+          dot += A[row + col*N] * x[col];
+      }
+      xtmp[row] = (b[row] - dot) / A[row + row*N];
+    }
 
     // Swap pointers
     ptrtmp = x;
@@ -88,7 +79,7 @@ int run(double *A, double *b, double *x, double *xtmp)
 
     itr++;
   } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
-printf("gets here\n");
+
   return itr;
 }
 
@@ -100,7 +91,6 @@ int main(int argc, char *argv[])
   double *b    = malloc(N*sizeof(double));
   double *x    = malloc(N*sizeof(double));
   double *xtmp = malloc(N*sizeof(double));
-
 
   printf(SEPARATOR);
   printf("Matrix size:            %dx%d\n", N, N);
@@ -118,7 +108,7 @@ int main(int argc, char *argv[])
     for (int col = 0; col < N; col++)
     {
       double value = rand()/(double)RAND_MAX;
-      A[col + row*N] = value;
+      A[row + col*N] = value;
       rowsum += value;
     }
     A[row + row*N] += rowsum;
@@ -138,7 +128,7 @@ int main(int argc, char *argv[])
     double tmp = 0.0;
     for (int col = 0; col < N; col++)
     {
-      tmp += A[col + row*N] * x[col];
+      tmp += A[row + col*N] * x[col];
     }
     tmp = b[row] - tmp;
     err += tmp*tmp;

@@ -37,32 +37,6 @@ double get_timestamp();
 // Parse command line arguments to set solver parameters
 void parse_arguments(int argc, char *argv[]);
 
-void extract_diagonal(double *A, double *D){
-  int row;
-  for (row = 0; row < N; row++){
-      D[row] = 1 / A[row + row*N];
-      A[row + row*N] = 0.0;
-  }
-  return;
-}
-
-//jacobi iteration function
-void jacobi_iterations (double *A, double *D, double *b, double *x, double *xtmp) {
-  int row, col;
-  double dot;
-  for (row = 0; row < N; row++)
-  {
-    dot = 0.0;
-    for (col = 0; col < N; col++)
-    {
-        dot += A[col + row*N] * x[col];
-      }
-      xtmp[row] = (b[row] - dot) * D[row];
-    }
-    return;
-}
-
-
 // Run the Jacobi solver
 // Returns the number of iterations performed
 int run(double *A, double *D, double *b, double *x, double *xtmp)
@@ -79,7 +53,7 @@ int run(double *A, double *D, double *b, double *x, double *xtmp)
   do
   {
 
-// Perfom Jacobi iteration
+// Perfom Jacobi iteration (can be extracted into function)
 for (row = 0; row < N; row++)
 {
   dot = 0.0;
@@ -88,7 +62,7 @@ for (row = 0; row < N; row++)
       dot += A[col + row*N] * x[col];
     }
     xtmp[row] = (b[row] - dot) * D[row];
-  }
+}
 
     // Swap pointers
     ptrtmp = x;
@@ -145,12 +119,13 @@ int main(int argc, char *argv[])
     D[row] = 0.0;
   }
 
-  //Extract diagonal
+  //Extract diagonal (can be extracted into function)
 
-  for (int row = 0; row < N; row++){
+  for (int row = 0; row < N; row++)
+  {
       D[row] = 1 / A[row + row*N];
       A[row + row*N] = 0.0;
-    }
+  }
 
   // Run Jacobi solver
   double solve_start = get_timestamp();

@@ -87,12 +87,12 @@ int main(int argc, char *argv[])
 {
   parse_arguments(argc, argv);
 
-  float *Aprime = malloc(N*N*sizeof(float));
-  float *A    = malloc(N*N*sizeof(float));
-  float *D    = malloc(N*sizeof(float));
-  float *b    = malloc(N*sizeof(float));
-  float *x    = malloc(N*sizeof(float));
-  float *xtmp = malloc(N*sizeof(float));
+  float *Aprime = malloc(N*N*sizeof(float*));
+  float *A    = malloc(N*N*sizeof(float*));
+  float *D    = malloc(N*sizeof(float*));
+  float *b    = malloc(N*sizeof(float*));
+  float *x    = malloc(N*sizeof(float*));
+  float *xtmp = malloc(N*sizeof(float*));
 
 
   printf(SEPARATOR);

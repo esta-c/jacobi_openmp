@@ -116,6 +116,7 @@ int main(int argc, char *argv[])
       rowsum += value;
     }
     A[row + row*N] += rowsum;
+    Aprime[row + row*N] += rowsum;
     b[row] = rand()/(float)RAND_MAX;
     x[row] = 0.0;
     D[row] = 0.0;

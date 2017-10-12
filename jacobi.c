@@ -105,10 +105,11 @@ int main(int argc, char *argv[])
 
   // Initialize data
   srand(SEED);
-  for (int row = 0; row < N; row++)
+  int row, col;
+  for (row = 0; row < N; row++)
   {
     float rowsum = 0.0;
-    for (int col = 0; col < N; col++)
+    for (col = 0; col < N; col++)
     {
       float value = rand()/(float)RAND_MAX;
       A[col + row*N] = value;
@@ -124,7 +125,7 @@ int main(int argc, char *argv[])
 
   //Extract diagonal (can be extracted into function)
 
-  for (int row = 0; row < N; row++)
+  for (row = 0; row < N; row++)
   {
       D[row] = 1 / A[row + row*N];
       A[row + row*N] = 0.0;
@@ -137,10 +138,10 @@ int main(int argc, char *argv[])
 
   // Check error of final solution
   float err = 0.0;
-  for (int row = 0; row < N; row++)
+  for (row = 0; row < N; row++)
   {
     float tmp = 0.0;
-    for (int col = 0; col < N; col++)
+    for (col = 0; col < N; col++)
     {
       tmp += Aprime[col + row*N] * x[col];
     }

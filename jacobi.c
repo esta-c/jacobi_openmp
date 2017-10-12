@@ -196,8 +196,8 @@ void parse_arguments(int argc, char *argv[])
   MAX_ITERATIONS = 20000;
   CONVERGENCE_THRESHOLD = 0.0001;
   SEED = 0;
-
-  for (int i = 1; i < argc; i++)
+  int i;
+  for (i = 1; i < argc; i++)
   {
     if (!strcmp(argv[i], "--convergence") || !strcmp(argv[i], "-c"))
     {

@@ -87,6 +87,7 @@ int main(int argc, char *argv[])
 {
   parse_arguments(argc, argv);
 
+  float *Aprime = malloc(N*N*sizeof(float));
   float *A    = malloc(N*N*sizeof(float));
   float *D    = malloc(N*sizeof(float));
   float *b    = malloc(N*sizeof(float));
@@ -111,6 +112,7 @@ int main(int argc, char *argv[])
     {
       float value = rand()/(float)RAND_MAX;
       A[col + row*N] = value;
+      Aprime[col + row*N] = value;
       rowsum += value;
     }
     A[row + row*N] += rowsum;
@@ -139,7 +141,7 @@ int main(int argc, char *argv[])
     float tmp = 0.0;
     for (int col = 0; col < N; col++)
     {
-      tmp += A[col + row*N] * x[col];
+      tmp += Aprime[col + row*N] * x[col];
     }
     tmp = b[row] - tmp;
     err += tmp*tmp;

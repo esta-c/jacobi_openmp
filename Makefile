@@ -1,4 +1,4 @@
-CC = icpc
+CC = icc
 CFLAGS = -pg -O2 -fast
 LDFLAGS = -lm
 

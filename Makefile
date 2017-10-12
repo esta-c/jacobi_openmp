@@ -1,4 +1,4 @@
-CC = icc
+CC = clang
 CFLAGS = -std=c99 -Wall -pg -O2
 LDFLAGS = -lm
 

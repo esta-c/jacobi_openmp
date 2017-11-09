@@ -55,7 +55,7 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
   {
 
 // Perfom Jacobi iteration (can be extracted into function)
-#pragma omp parallel for shared(A, x, b, xtmp) private(dot)
+#pragma omp parallel for shared(A, x, b, D, xtmp) private(dot)
     for (row = 0; row < N; row++)
     {
       dot = 0.0;

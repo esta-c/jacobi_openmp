@@ -55,15 +55,16 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
   {
 
 // Perfom Jacobi iteration (can be extracted into function)
-for (row = 0; row < N; row++)
-{
-  dot = 0.0;
-  for (col = 0; col < N; col++)
-  {
-      dot += A[col + row*N] * x[col];
+#pragma omp parallel for shared(A, x, b, xtmp) private(dot)
+    for (row = 0; row < N; row++)
+    {
+      dot = 0.0;
+      for (col = 0; col < N; col++)
+      {
+          dot += A[col + row*N] * x[col];
+        }
+        xtmp[row] = (b[row] - dot) * D[row];
     }
-    xtmp[row] = (b[row] - dot) * D[row];
-}
 
     // Swap pointers
     ptrtmp = x;

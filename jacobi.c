@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
   // Initialize data
   srand(SEED);
   int row, col;
-#pragma omp parallel for shared(A, Aprime, b, x, D) private(rowsum, value)
+#pragma omp parallel for shared(A, Aprime, b, x, D)
   for (row = 0; row < N; row++)
   {
     float rowsum = 0.0;

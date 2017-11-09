@@ -73,13 +73,11 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
 
     // Check for convergence
     sqdiff = 0.0;
-#pragma omp parallel for shared(sqdiff) private(diff)
   for (row = 0; row < N; row++)
     {
       diff    = xtmp[row] - x[row];
-      sqdiff += diff * diff;
+      sqdiff += diff * diff; //the plus equals is adding to different things when parallel
     }
-
     itr++;
   } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
 
@@ -109,6 +107,7 @@ int main(int argc, char *argv[])
   // Initialize data
   srand(SEED);
   int row, col;
+#pragma omp parallel for shared(A, Aprime, b, x, D) private(rowsum, value)
   for (row = 0; row < N; row++)
   {
     float rowsum = 0.0;

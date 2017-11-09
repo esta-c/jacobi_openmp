@@ -73,7 +73,8 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
 
     // Check for convergence
     sqdiff = 0.0;
-    for (row = 0; row < N; row++)
+#pragma omp parallel for shared(sqdiff, xtmp, x) private(diff)
+  for (row = 0; row < N; row++)
     {
       diff    = xtmp[row] - x[row];
       sqdiff += diff * diff;

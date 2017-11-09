@@ -1,5 +1,5 @@
 CC = icc
-CFLAGS = -pg -O2 -fast
+CFLAGS = -03 -xHOST -qopenmp
 LDFLAGS = -lm
 
 jacobi: jacobi.c

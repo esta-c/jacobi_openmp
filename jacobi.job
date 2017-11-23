@@ -15,4 +15,68 @@ echo Time is `date`
 echo Directory is `pwd`
 echo PBS job ID is $PBS_JOBID
 
-./jacobi --norder 4000 --iterations 20000
+size=4000
+
+export OMP_NUM_THREADS=1
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=2
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=3
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=4
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=5
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=6
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=7
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=8
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=9
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=10
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=11
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=12
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=13
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=14
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=15
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000
+
+export OMP_NUM_THREADS=16
+echo No. of threads $OMP_NUM_THREADS
+./jacobi --norder $size --iterations 20000

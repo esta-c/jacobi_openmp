@@ -55,7 +55,7 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
   {
 
 // Perfom Jacobi iteration (can be extracted into function)
-#pragma omp parallel for shared(A, x, b, D, xtmp) private(dot)
+#pragma omp parallel for shared(A, x, b, D, xtmp) private(dot) reduction(+:sqdiff)
     for (row = 0; row < N; row++)
     {
       dot = 0.0;
@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
   // Initialize data
   srand(SEED);
   int row, col;
-#pragma omp parallel for shared(A, Aprime, b, x, D)
+  #pragma omp parallel for shared(A, Aprime, b, x, D)
   for (row = 0; row < N; row++)
   {
     float rowsum = 0.0;

@@ -127,10 +127,10 @@ int main(int argc, char *argv[])
 //populate the arrays on the different threads with random numbers
 
   srand(SEED);
-  for (row = 0; row < N; r++)
+  for (row = 0; row < N; row++)
   {
     float rowsum = 0.0;
-    for (col = 0; col < N; c++)
+    for (col = 0; col < N; col++)
     {
       float value = rand()/(float)RAND_MAX;
       A[col + row*N] = value;

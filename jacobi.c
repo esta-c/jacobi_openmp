@@ -53,7 +53,6 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
   itr = 0;
   do
   {
-
 // Perfom Jacobi iteration (can be extracted into function)
   sqdiff = 0.0;
 #pragma omp parallel for shared(A, x, b, D, xtmp) private(dot) reduction(+:sqdiff)
@@ -121,16 +120,12 @@ int main(int argc, char *argv[])
 #pragma omp parallel for shared(A, Aprime, b, x, D)
   for (row = 0; row < N; row++)
   {
-    float rowsum = 0.0;
     for (col = 0; col < N; col++)
     {
       float value = 0.0;
       A[col + row*N] = value;
       Aprime[col + row*N] = value;
-      rowsum += value;
     }
-    A[row + row*N] += rowsum;
-    Aprime[row + row*N] += rowsum;
     b[row] = 0.0;
     x[row] = 0.0;
     D[row] = 0.0;

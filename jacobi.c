@@ -71,12 +71,17 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
       sqdiff += diff * diff;
 
     } itr++;
-  } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
 
-    // Swap pointers
     ptrtmp = x;
     x      = xtmp;
     xtmp   = ptrtmp;
+
+  } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
+
+    // Swap pointers
+  /*  ptrtmp = x;
+    x      = xtmp;
+    xtmp   = ptrtmp; */
 
     // Check for convergence
 /*    sqdiff = 0.0;

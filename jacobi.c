@@ -77,21 +77,6 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
 
   } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
 
-    // Swap pointers
-  /*  ptrtmp = x;
-    x      = xtmp;
-    xtmp   = ptrtmp; */
-
-    // Check for convergence
-/*    sqdiff = 0.0;
-  for (row = 0; row < N; row++)
-    {
-      diff    = xtmp[row] - x[row];
-      sqdiff += diff * diff; //the plus equals is adding to different things when parallel
-    }
-    itr++;
-  } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD)); */
-
   return itr;
 }
 

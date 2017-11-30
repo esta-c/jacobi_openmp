@@ -15,7 +15,7 @@ echo Time is `date`
 echo Directory is `pwd`
 echo PBS job ID is $PBS_JOBID
 
-size=4000
+size=2000
 
 export OMP_NUM_THREADS=1
 echo No. of threads $OMP_NUM_THREADS

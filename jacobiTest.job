@@ -17,4 +17,6 @@ echo PBS job ID is $PBS_JOBID
 
 size=4000
 
+export OMP_NUM_THREADS=1
+echo No. of threads $OMP_NUM_THREADS
 ./jacobi --norder $size --iterations 20000

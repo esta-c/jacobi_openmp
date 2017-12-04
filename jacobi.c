@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
   double total_start = get_timestamp();
 
   // Initialize data to zeros on the correct threads
-  /*int row, col;
+  int row, col;
 #pragma omp parallel for shared(A, Aprime, b, x, D)
   for (row = 0; row < N; row++)
   {
@@ -113,11 +113,11 @@ int main(int argc, char *argv[])
     b[row] = 0.0;
     x[row] = 0.0;
     D[row] = 0.0;
-  }*/
+  }
 
 //populate the arrays on the different threads with random numbers
 
-  /*srand(SEED);
+  srand(SEED);
   for (row = 0; row < N; row++)
   {
     float rowsum = 0.0;
@@ -131,9 +131,9 @@ int main(int argc, char *argv[])
     A[row + row*N] += rowsum;
     Aprime[row + row*N] += rowsum;
     b[row] = rand()/(float)RAND_MAX;
-  }*/
+  }
 
-  srand(SEED);
+/*  srand(SEED);
   int row, col;
   for (row = 0; row < N; row++)
   {
@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
     b[row] = rand()/(float)RAND_MAX;
     x[row] = 0.0;
     D[row] = 0.0;
-  }
+  }*/
 
   //Extract diagonal (can be extracted into function)
 

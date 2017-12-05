@@ -133,14 +133,15 @@ int main(int argc, char *argv[])
     b[row] = rand()/(float)RAND_MAX;
   }*/
 
-  srand(SEED);
+  //srand(SEED);
   int row, col;
+  #pragma omp parallel for shared(A, Aprime, b, x, D)
   for (row = 0; row < N; row++)
   {
     float rowsum = 0.0;
     for (col = 0; col < N; col++)
     {
-      float value = rand_r()/(float)RAND_MAX;
+      float value = rand_r(SEED)/(float)RAND_MAX;
       A[col + row*N] = value;
       Aprime[col + row*N] = value;
       rowsum += value;

@@ -55,7 +55,7 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
   {
 // Perfom Jacobi iteration (can be extracted into function)
   sqdiff = 0.0;
-#pragma omp parallel for shared(A, x, b, D, xtmp) private(dot, col) reduction(+:sqdiff)
+#pragma omp parallel for shared(A, x, b, D, xtmp) private(dot) reduction(+:sqdiff)
     for (row = 0; row < N; row++)
     {
       dot = 0.0;
@@ -66,7 +66,7 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
       xtmp[row] = (b[row] - dot) * D[row];
 
       //check for convergence
-      diff    = xtmp[row] - x[row];
+      diff = xtmp[row] - x[row];
       sqdiff += diff * diff;
 
     } itr++;

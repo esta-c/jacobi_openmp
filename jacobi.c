@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
     float rowsum = 0.0;
     for (col = 0; col < N; col++)
     {
-      float value = rand_r(SEED)/(float)RAND_MAX;
+      float value = rand_r(&SEED)/(float)RAND_MAX;
       A[col + row*N] = value;
       Aprime[col + row*N] = value;
       rowsum += value;

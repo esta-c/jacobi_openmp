@@ -45,7 +45,7 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
   int itr;
   int row, col;
   float dot;
-  float diff;
+  //float diff;
   float sqdiff;
   float *ptrtmp;
 
@@ -66,7 +66,7 @@ int run(float *A, float *D, float *b, float *x, float *xtmp)
       xtmp[row] = (b[row] - dot) * D[row];
 
       //check for convergence
-      diff = xtmp[row] - x[row];
+      float diff = xtmp[row] - x[row];
       sqdiff += diff * diff;
 
     } itr++;
